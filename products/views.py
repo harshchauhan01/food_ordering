@@ -1,12 +1,31 @@
 from django.shortcuts import render,redirect
+from .models import Contact
+from django.http import HttpResponse
 
 # Create your views here.
 
 def Home(request):
     return render(request,'index.html')
 
-def Contact(request):
-    return render(request,'contact.html')
+def contact_page(request):
+    context={}
+    if request.method=="POST":
+        name  = request.POST.get('name')
+        email = request.POST.get('email')
+        subject = request.POST.get('subject')
+        message = request.POST.get('message')
+
+        Contact.objects.create(
+            name=name,
+            email=email,
+            subject=subject,
+            message=message
+        )
+        context['message']=f"Dear {name} , Thanks for visiting"
+        
+        return redirect("/contact/")
+
+    return render(request,'contact.html',context)
 
 def About(request):
     return render(request,'about.html')
