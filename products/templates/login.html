@@ -1,0 +1,222 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  .form-container{
+    display:flex;
+    justify-content:center
+  }
+  .form1 {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 350px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 20px;
+    position: relative;
+  }
+  
+  .title {
+    font-size: 28px;
+    color: royalblue;
+    font-weight: 600;
+    letter-spacing: -1px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+  }
+  
+  .title::before,.title::after {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    left: 0px;
+    background-color: royalblue;
+  }
+  
+  .title::before {
+    width: 18px;
+    height: 18px;
+    background-color: royalblue;
+  }
+  
+  .title::after {
+    width: 18px;
+    height: 18px;
+    animation: pulse 1s linear infinite;
+  }
+  
+  .message, .signin {
+    color: rgba(88, 87, 87, 0.822);
+    font-size: 14px;
+  }
+  
+  .signin {
+    text-align: center;
+  }
+  
+  .signin a {
+    color: royalblue;
+  }
+  
+  .signin a:hover {
+    text-decoration: underline royalblue;
+  }
+  
+  .flex {
+    display: flex;
+    width: 100%;
+    gap: 6px;
+  }
+  
+  .form1 label {
+    position: relative;
+  }
+  
+  .form1 label .input {
+    width: 100%;
+    padding: 10px 10px 20px 10px;
+    outline: 0;
+    border: 1px solid rgba(105, 105, 105, 0.397);
+    border-radius: 10px;
+  }
+  
+  .form1 label .input + span {
+    position: absolute;
+    left: 10px;
+    top: 15px;
+    color: grey;
+    font-size: 0.9em;
+    cursor: text;
+    transition: 0.3s ease;
+  }
+  
+  .form1 label .input:placeholder-shown + span {
+    top: 15px;
+    font-size: 0.9em;
+  }
+  
+  .form1 label .input:focus + span,.form1 label .input:valid + span {
+    top: 30px;
+    font-size: 0.7em;
+    font-weight: 600;
+  }
+  
+  .form1 label .input:valid + span {
+    color: green;
+  }
+  
+  .submit {
+    border: none;
+    outline: none;
+    background-color: royalblue;
+    padding: 10px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 16px;
+    transform: .3s ease;
+  }
+  
+  .submit:hover {
+    background-color: rgb(56, 90, 194);
+  }
+  
+  @keyframes pulse {
+    from {
+      transform: scale(0.9);
+      opacity: 1;
+    }
+  
+    to {
+      transform: scale(1.8);
+      opacity: 0;
+    }
+  }
+  
+  
+</style>
+        <!-- Nav Bar Start -->
+        <div class="navbar navbar-expand-lg bg-light navbar-light">
+            <div class="container-fluid">
+                <a href="{% url  'Home' %}" class="navbar-brand">Burger <span>King</span></a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    <div class="navbar-nav ml-auto">
+                        <a href="{% url  'Home' %}" class="nav-item nav-link ">Home</a>
+                        <a href="{% url  'About' %}" class="nav-item nav-link">About</a>
+                        <a href="{% url  'Feature' %}" class="nav-item nav-link ">Feature</a>
+                        <a href="{% url  'Chef' %}" class="nav-item nav-link">Chef</a>
+                        <a href="{% url  'Menu' %}" class="nav-item nav-link">Menu</a>
+                        <a href="{% url  'Booking' %}" class="nav-item nav-link">Booking</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
+                            <div class="dropdown-menu">
+                                <a href="{% url  'Blog' %}" class="dropdown-item">Blog Grid</a>
+                                <a href="{% url  'BlogDetail' %}" class="dropdown-item">Blog Detail</a>
+                                <a href="{% url  'Register' %}" class="dropdown-item active">Login</a>
+                            </div>
+                        </div>
+                        <a href="{% url  'Contact' %}" class="nav-item nav-link">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Nav Bar End -->
+        
+        
+        <!-- Page Header Start -->
+        <div class="page-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h2>Food Blog</h2>
+                    </div>
+                    <div class="col-12">
+                        <a href="">Home</a>
+                        <a href="">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page Header End -->
+        
+        
+        <!-- Form Start -->
+        <div class="form-container">
+          <form class="form1 " method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <p class="title">Login </p>
+              {% if messages %}
+              {{messages.tags}}
+              <div class="messages alert alert-info" role="alert">
+                  {% for message in messages %}
+                  {{message}}
+                  {% endfor %}
+              </div>
+              {% endif %}
+              <p class="message">SignIn now and get full access to our app. </p>
+                   
+              <label>
+                  <input class="input" name="username" type="username" placeholder="" required="">
+                  <span>User Name</span>
+              </label> 
+                  
+              <label>
+                  <input class="input" name="password" type="password" placeholder="" required="">
+                  <span>Password</span>
+              </label>
+              
+              <button class="submit" type="submit">Submit</button>
+              <p class="signin">Don't have an acount ? <a href="/register/">Signup</a> </p><br>
+              
+          </form>
+        </div>
+        <!-- Form End -->
+
+{% endblock %}

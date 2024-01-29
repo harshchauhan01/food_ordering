@@ -29,4 +29,6 @@ urlpatterns = [
     path('blog-grid/',Blog,name='Blog'),
     path('blog-detail/',BlogDetail,name='BlogDetail'),
     path('booking/',Booking,name='Booking'),
+    path('register/',Register,name='Register'),
+    path('login/',login_page,name='login'),
 ]
