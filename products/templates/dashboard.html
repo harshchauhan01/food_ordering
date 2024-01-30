@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .center{
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        
+        text-align:left;
+    }
+</style>
+
+<!-- Page Header Start -->
+<div class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2>Master Chef</h2>
+            </div>
+            <div class="col-12">
+                <a href="">Home</a>
+                <a href="">Dashboard</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
+<div class="container center">
+    <h1>User: {{user.username}}</h1>
+    <h1>Name: {{user.first_name}} {{user.last_name}}</h1>
+    <p>Date of Joining : {{user.date_joined}}</p>
+    <p>Last Login : {{user.last_login}}</p>
+    <p>Is Admin ? : {{user.is_superuser}}</p>
+    <p>Is Staff ? : {{user.is_staff}}</p>
+    
+</div>
+
+{% endblock  %}

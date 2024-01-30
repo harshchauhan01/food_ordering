@@ -94,7 +94,9 @@ def login_page(request):
             user = authenticate(username = username , password = password)
             if user is not None:
                 login(request,user)
-                return redirect('/menu/')
+                if user.is_superuser or user.is_staff:
+                    return redirect('/admin')
+                return redirect('/home/')
                 
             else:
                 messages.info(request,'Invalid Password')
@@ -105,3 +107,12 @@ def login_page(request):
             messages.info(request,'Invalid Username')
             return redirect('/login/')
     return render(request,'login.html')
+
+def logout_page(request):
+    logout(request)
+    return redirect("/login/")
+
+
+@login_required(login_url="/login/")
+def dashboard(request):
+    return render(request,"dashboard.html")
