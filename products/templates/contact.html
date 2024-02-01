@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-
+{% if status %}
+<script type="text/javascript">
+    alert("{{status}}")
+</script>
+{% endif %}
         
         
         
