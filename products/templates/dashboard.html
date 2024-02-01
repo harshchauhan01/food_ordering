@@ -1,13 +1,256 @@
 {% extends "base.html" %}
 {% block content %}
+{% if status %}
+<script type="text/javascript">
+    alert("{{status}}")
+</script>
+{% endif %}
 <style>
-    .center{
+    .dashboard{
+        width:100%;
+        height:100%;
         display:flex;
-        flex-direction:column;
         justify-content:center;
-        
-        text-align:left;
+        align-item:center;
     }
+    .center {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center the container horizontally */
+        justify-content: center; /* Center the container vertically */
+        text-align: left;
+    }
+
+    .full {
+        width: 100%;
+        max-width: 1200px;
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center the content horizontally */
+        justify-content: center;
+        margin-top: 20px; /* Add margin for spacing */
+    }
+
+    .pro-container {
+        width: 700px;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        align-items: center; /* Center the content horizontally */
+        justify-content: space-between;
+        border-bottom: 5px solid rgb(251, 175, 50);
+        border-top: 5px solid rgb(251, 175, 50);
+        padding-top: 50px;
+    }
+
+    .profile-photo,.pic {
+        width: 150px;
+        height: 150px;
+        border: 1px solid black;
+        border-radius: 50%;
+        overflow: hidden;
+        position: relative;
+        display: inline-block;
+        background-color: rgb(221, 223, 222);
+        background-size: cover;
+        background-position: center;
+        object-fit: cover;
+    }
+
+    #profilePhoto {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        object-fit: contain;
+    }
+
+    .order{
+        color:rgb(251, 175, 50);
+        padding-top:20px;
+        cursor:pointer;
+        margin-top:50px;
+        padding-left:20px;
+        padding-right:20px;
+        padding-bottom:20px;
+        border: 5px solid rgb(251, 175, 50);
+        border-radius:20%;
+        transition:0.3s;
+    }
+    .order:hover{
+        background-color:rgb(113, 154, 10);
+        color:white;
+        border: 5px solid rgb(113, 154, 10);
+
+    }
+
+    .dash-heading{
+        font-size:55px;
+        color:rgb(113, 154, 10);
+        padding-bottom:30px;
+    }
+
+    .form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 350px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 20px;
+  position: relative;
+}
+
+.title {
+  font-size: 28px;
+  color: royalblue;
+  font-weight: 600;
+  letter-spacing: -1px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+}
+
+.title::before,.title::after {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  left: 0px;
+  background-color: royalblue;
+}
+
+.title::before {
+  width: 18px;
+  height: 18px;
+  background-color: royalblue;
+}
+
+.title::after {
+  width: 18px;
+  height: 18px;
+  animation: pulse 1s linear infinite;
+}
+
+.message, .signin {
+  color: rgba(88, 87, 87, 0.822);
+  font-size: 14px;
+}
+
+.signin {
+  text-align: center;
+}
+
+.signin a {
+  color: royalblue;
+}
+
+.signin a:hover {
+  text-decoration: underline royalblue;
+}
+
+.flex {
+  display: flex;
+  width: 100%;
+  gap: 6px;
+}
+
+.form label {
+  position: relative;
+}
+
+.form label .input {
+  width: 100%;
+  padding: 10px 10px 20px 10px;
+  outline: 0;
+  border: 1px solid rgba(105, 105, 105, 0.397);
+  border-radius: 10px;
+}
+
+.form label .input + span {
+  position: absolute;
+  left: 10px;
+  top: 15px;
+  color: grey;
+  font-size: 0.9em;
+  cursor: text;
+  transition: 0.3s ease;
+}
+
+.form label .input:placeholder-shown + span {
+  top: 15px;
+  font-size: 0.9em;
+}
+
+.form label .input:focus + span,.form label .input:valid + span {
+  top: 30px;
+  font-size: 0.7em;
+  font-weight: 600;
+}
+
+.form label .input:valid + span {
+  color: green;
+}
+
+.submit {
+  border: none;
+  outline: none;
+  background-color: royalblue;
+  padding: 10px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  transform: .3s ease;
+}
+
+.submit:hover {
+  background-color: rgb(56, 90, 194);
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(0.9);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+.update{
+    max-width:550px;
+    padding-top: 20px;
+    color:rgb(251, 175, 50);
+    border-bottom: 5px solid rgb(251, 175, 50);
+}
+.but-large  {
+ padding: 0.6em 1em;
+ border: 4px solid rgb(251, 175, 50);
+ transition: ease-in-out 0.3s;
+ background-color: transparent;
+ color: rgb(251, 175, 50);
+ font-weight: bolder;
+ font-size: 26px;
+ margin-left:90px;
+ margin-top:50px;
+
+}
+.but-text{
+    color: rgb(251, 175, 50);
+}
+.but-text:hover{
+    color: white;
+}
+.but-large:hover {
+ border: 4px solid rgb(113, 154, 10);
+ transform: scale(1.2) rotate(10deg);
+ background-color: rgb(113, 154, 10);
+ color: white;
+}
 </style>
 
 <!-- Page Header Start -->
@@ -24,15 +267,72 @@
         </div>
     </div>
 </div>
-<!-- Page Header End -->
-<div class="container center">
-    <h1>User: {{user.username}}</h1>
-    <h1>Name: {{user.first_name}} {{user.last_name}}</h1>
-    <p>Date of Joining : {{user.date_joined}}</p>
-    <p>Last Login : {{user.last_login}}</p>
-    <p>Is Admin ? : {{user.is_superuser}}</p>
-    <p>Is Staff ? : {{user.is_staff}}</p>
-    
+<div class="dashboard">
+    <div class="full center">
+        <h1 class="dash-heading">Welcome To Dashboard</h1>
+        
+        <div class="drop-cont">
+            
+            <ul class="nav nav-tabs width" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Dashboard</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Update Things</a>
+              </li>
+              
+              <li class="nav-item">
+                <a class="nav-link" id="order-tab" data-toggle="tab" href="#order" role="tab" aria-controls="order" aria-selected="false">Order</a>
+              </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              
+              <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="pro-container">
+                    <div class="profile-photo">
+                        {% if profile.profile_pic %}
+                        <a href="/media/{{profile.profile_pic}}"><img src="/media/{{profile.profile_pic}}" class="pic" alt="pic"></a>
+                        {% else %}
+                        <span class="pic">{{profile.user.username.0}}</span>
+                        {% endif %}
+                    </div>
+                    <div class="details">
+                        <h1 style="color:rgb(113, 154, 10)"><b style="color:rgb(251, 175, 50)">Full Name:</b> {{user.first_name}} {{user.last_name}}</h1>
+                        <h1 style="color:rgb(113, 154, 10)"><b style="color:rgb(251, 175, 50)">User Name:</b> {{user.username}}</h1>
+                        <p style="color:rgb(113, 154, 10)"><b style="color:rgb(251, 175, 50)">Date of Joining :</b> {{user.date_joined}}</p>
+                        <p style="color:rgb(113, 154, 10)"><b style="color:rgb(251, 175, 50)">Last Login :</b> {{user.last_login}}</p>
+                        <p style="color:rgb(113, 154, 10)"><b style="color:rgb(251, 175, 50)">Is Admin ? :</b> {{user.is_superuser}}</p>
+                        <p style="color:rgb(113, 154, 10)"><b style="color:rgb(251, 175, 50)">Is Staff ? :</b> {{user.is_staff}}</p>
+                    </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="order" role="tabpanel" aria-labelledby="order-tab">
+                <button  class="but-large  "><a href="/home/" class="but-text">Order Now</a></button>
+              </div>
+              <div class="tab-pane fade " id="home" role="tabpanel" aria-labelledby="home-tab">
+                <h1 class="update">Update Profile-pic</h1>
+                <form class="form" method="post" enctype="multipart/form-data">  
+                    {% csrf_token %}
+                    <label>
+                        <input name="name" type="text" value="{{profile.user.username}}" class="input">
+                        <span>Username</span>
+                    </label>
+                    <label>
+                        <input  name="profile_pic" type="file" class="input">
+                    </label> 
+
+                    <button class="submit" name="update-profile">Update Profile</button>
+                    
+                </form>
+              </div>
+            </div>
+        </div>
+        
+
+
+    </div>
 </div>
+
+
 
 {% endblock  %}

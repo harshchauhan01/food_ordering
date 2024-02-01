@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls.static import static
+from foodordering import settings
 from products.views import *
 
 urlpatterns = [
@@ -34,4 +36,6 @@ urlpatterns = [
     path('login/',login_page,name='login'),
     path('logout/',logout_page,name='logout'),
     path('dashboard/',dashboard,name='dashboard'),
+    
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

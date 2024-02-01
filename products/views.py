@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import Contact
+from .models import *
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -115,4 +115,23 @@ def logout_page(request):
 
 @login_required(login_url="/login/")
 def dashboard(request):
-    return render(request,"dashboard.html")
+    context={}
+    profile=Profile.objects.get(user__username=request.user.username)
+    context['profile']=profile
+
+    if "update-profile" in request.POST:
+        name=request.POST.get('name')
+        
+    
+        profile.user.username=name
+        profile.user.save()
+        
+        if "profile_pic" in request.FILES:
+            profile_pic=request.FILES.get('profile_pic')
+            profile.profile_pic=profile_pic
+            profile.save()
+        context['status']="Profile updated successfully"
+
+
+    return render(request,"dashboard.html",context)
+    
