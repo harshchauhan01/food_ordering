@@ -251,6 +251,11 @@
  background-color: rgb(113, 154, 10);
  color: white;
 }
+.not-found{
+  font-size: 30px;
+  text-align: center;
+  padding-top: 20px;
+}
 </style>
 
 <!-- Page Header Start -->
@@ -306,9 +311,38 @@
                     </div>
                 </div>
               </div>
+
               <div class="tab-pane fade" id="order" role="tabpanel" aria-labelledby="order-tab">
-                <button  class="but-large  "><a href="/home/" class="but-text">Order Now</a></button>
+                {% if orders %}
+                <table class="table table-bordered ">
+                  <thead>
+                    <tr>
+                      <th class="pl-5 pr-5" scope="col">S.no</th>
+                      <th class="pl-5 pr-5" scope="col">Contact</th>
+                      <th class="pl-5 pr-5" scope="col">Persons</th>
+                      <th class="pl-5 pr-5" scope="col">Date</th>
+                      <th class="pl-5 pr-5" scope="col">Time</th>
+                      <th class="pl-5 pr-5" scope="col">Table</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for order in orders%}
+                    <tr>
+                      <th class="pl-5 pr-5" scope="row">{{forloop.counter}}</th>
+                      <td class="pl-5 pr-5" >{{order.mobile_no}}</td>
+                      <td class="pl-5 pr-5" >{{order.numPer}}</td>
+                      <td class="pl-5 pr-5" >{{order.date}}</td>
+                      <td class="pl-5 pr-5" >{{order.time}}</td>
+                      <td class="pl-5 pr-5" >{{order.table}}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+                {% else %}
+                <div class="not-found ">Not Found</div>
+                {% endif %}
               </div>
+
               <div class="tab-pane fade " id="home" role="tabpanel" aria-labelledby="home-tab">
                 <h1 class="update">Update Profile-pic</h1>
                 <form class="form" method="post" enctype="multipart/form-data">  

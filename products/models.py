@@ -23,3 +23,12 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.first_name
+    
+class Order_Food(models.Model):
+    name=models.CharField(max_length=100)
+    email=models.EmailField(null=False,blank=False)
+    mobile_no=models.TextField()
+    numPer=models.TextField(default=1)
+    date=models.TextField()
+    time=models.TextField()
+    table=models.TextField()

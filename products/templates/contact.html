@@ -1,11 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-{% if status %}
-<script type="text/javascript">
-    alert("{{status}}")
-</script>
-{% endif %}
-        
+
         
         
         <!-- Page Header Start -->
@@ -92,6 +87,13 @@
                         <div id="success"></div>
                         
                         <form class="form" name="sentMessage" method="post" enctype="multipart/form-data">
+                            {% if message %}
+                            <div class="alert alert-primary" role="alert">
+                                    
+                                {{message}}
+                                
+                            </div>
+                            {% endif %}
                             {% csrf_token %}
                             <div class="control-group">
                                 <input type="text" class="form-control" name="name" placeholder="Your Name" required="required"  />

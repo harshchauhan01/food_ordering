@@ -57,7 +57,29 @@ def BlogDetail(request):
 
 @login_required(login_url="/login/")
 def Booking(request):
-    return render(request,'booking.html')
+    context={}
+    if request.method=="POST":
+        name=request.POST.get("name")
+        email=request.POST.get("email")
+        mobile_no=request.POST.get("mobile_no")
+        numPer=request.POST.get("numPer")
+        date=request.POST.get("date")
+        time=request.POST.get("time")
+        table=request.POST.get("table")
+        Order_Food.objects.create(
+            name=name,
+            email=email,
+            mobile_no=mobile_no,
+            numPer=numPer,
+            date=date,
+            time=time,
+            table=table
+        )
+        
+        
+        context['message']=f"Dear {name} , Thanks for visiting"
+
+    return render(request,'booking.html',context)
 
 
 def Register(request):
@@ -121,8 +143,6 @@ def dashboard(request):
 
     if "update-profile" in request.POST:
         name=request.POST.get('name')
-        
-    
         profile.user.username=name
         profile.user.save()
         
@@ -131,6 +151,8 @@ def dashboard(request):
             profile.profile_pic=profile_pic
             profile.save()
         context['status']="Profile updated successfully"
+    queryset = Order_Food.objects.all()
+    context['orders']=queryset
 
 
     return render(request,"dashboard.html",context)
