@@ -18,6 +18,7 @@ class Contact(models.Model):
 
 class Profile(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
+    first_name=models.TextField(default="admin")
     profile_pic=models.ImageField(upload_to='profiles/%Y/%m/%d',null=True,blank=True)
     updated_on=models.DateTimeField(auto_now=True)
 
@@ -25,6 +26,7 @@ class Profile(models.Model):
         return self.user.first_name
     
 class Order_Food(models.Model):
+    user=models.OneToOneField(User,on_delete=models.CASCADE,default=None)
     name=models.CharField(max_length=100)
     email=models.EmailField(null=False,blank=False)
     mobile_no=models.TextField()

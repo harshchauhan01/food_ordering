@@ -58,6 +58,8 @@ def BlogDetail(request):
 @login_required(login_url="/login/")
 def Booking(request):
     context={}
+    
+    
     if request.method=="POST":
         name=request.POST.get("name")
         email=request.POST.get("email")
@@ -66,7 +68,9 @@ def Booking(request):
         date=request.POST.get("date")
         time=request.POST.get("time")
         table=request.POST.get("table")
+        user = request.user
         Order_Food.objects.create(
+            user=user,
             name=name,
             email=email,
             mobile_no=mobile_no,
@@ -138,12 +142,19 @@ def logout_page(request):
 @login_required(login_url="/login/")
 def dashboard(request):
     context={}
-    profile=Profile.objects.get(user__username=request.user.username)
+    try:
+        # Try to get the profile
+        profile = Profile.objects.get(user__username=request.user.username)
+    except Profile.DoesNotExist:
+        # If the profile doesn't exist, create a new one
+        profile = Profile.objects.create(user=request.user)
     context['profile']=profile
 
     if "update-profile" in request.POST:
         name=request.POST.get('name')
+        first_name=request.POST.get('first_name')
         profile.user.username=name
+        profile.user.first_name=first_name
         profile.user.save()
         
         if "profile_pic" in request.FILES:
@@ -151,7 +162,8 @@ def dashboard(request):
             profile.profile_pic=profile_pic
             profile.save()
         context['status']="Profile updated successfully"
-    queryset = Order_Food.objects.all()
+    
+    queryset = Order_Food.objects.filter(user=request.user)
     context['orders']=queryset
 
 
